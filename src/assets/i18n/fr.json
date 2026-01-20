@@ -1,7 +1,10 @@
 {
   "component": {
     "drop-down": {
-      "choose": "choisir une langue"
     }
+  },
+  "language": {
+    "fr": "français",
+    "en": "anglais"
   }
 }

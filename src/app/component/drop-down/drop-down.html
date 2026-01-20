@@ -1,0 +1,9 @@
+<div class="container" [style.width.px]="width">
+  <div (click)="toggle()" class="head">
+      <span  [class.rotate]="open">➤</span >
+      <span>{{itemSelected || label | translate | capitalize}}</span>
+  </div>
+    <ul *ngIf="open" class="dropdown-list">
+      <li *ngFor="let item of items" (click)="selectItem(item)">{{item | translate | capitalize}}</li>
+    </ul>
+</div>

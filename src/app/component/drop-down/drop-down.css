@@ -1,0 +1,44 @@
+.rotate {
+  transform: rotate(90deg);
+}
+
+.container{
+  display: inline-flex; ;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.head {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+span {
+  display: inline-block;
+  transform: rotate(0);
+  transition: transform 0.5s;
+}
+
+.dropdown-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.dropdown-list li {
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+.dropdown-list li:hover {
+  background-color: #eee;
+}
+
+
