@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {DEFAULT_LANGUAGE, Language} from '../model/Language';
 import {Question} from '../model/Question';
-import {queue} from 'rxjs';
 import {Level} from '../model/Level';
 import {Theme} from '../model/Theme';
 

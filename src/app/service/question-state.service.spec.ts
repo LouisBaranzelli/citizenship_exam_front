@@ -8,7 +8,6 @@ import { Injector } from '@angular/core';
 
 import { QuestionStateService } from './question-state.service';
 import { ApiQuestionService } from './api-question.service';
-import {Theme} from '../model/Theme';
 
 describe('QuestionStateService', () => {
   let service: QuestionStateService;
@@ -41,8 +40,8 @@ describe('QuestionStateService', () => {
     expect(service.historyId().length).toBe(0);
 
     // Ajout d’un thème
-    const theme1: Theme = { id: "t1" };
-    service.theme = theme1;
+    // const theme1: Theme = { id: "t1" };
+    // service.theme = theme1;
 
     // goToNext avec thème -> ajoute la question
     await service.goToNext();

@@ -1,0 +1,4 @@
+.theme-tile {
+  display: flex;
+  gap: 20px;
+}

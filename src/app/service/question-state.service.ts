@@ -14,7 +14,7 @@ export class QuestionStateService {
 
   private level: Level | null = null;
 
-  private _theme: Theme | null = null
+  public theme: Theme | null = null
 
   private language =  signal<Language>(DEFAULT_LANGUAGE)
 
@@ -70,17 +70,17 @@ export class QuestionStateService {
       return;
     }
 
-    if (this.level === null || this._theme === null) {
+    if (this.level === null || this.theme === null) {
       return
     }
 
     let newIndex: number;
     let question:  Question | null
     if (this.cursor() === null){
-      question = await this.apiService.fetchRandomQuestion(this.level, this._theme, this.language(), [])
+      question = await this.apiService.fetchRandomQuestion(this.level, this.theme, this.language(), [])
       newIndex = 0
     } else {
-      question = await this.apiService.fetchRandomQuestion(this.level, this._theme, this.language(), this.historyId())
+      question = await this.apiService.fetchRandomQuestion(this.level, this.theme, this.language(), this.historyId())
       newIndex = this.historyId().length
     }
      if (question === null){
@@ -116,10 +116,6 @@ export class QuestionStateService {
       newMap.set(language.id, mapLanguageSelected)
       return newMap
     })
-  }
-
-  set theme(value: Theme | null) {
-    this._theme = value;
   }
 
 

@@ -1,0 +1,8 @@
+<div class="theme-tile">
+  <tile *ngFor="let theme of themeIds"
+        [label]="theme"
+        [selected]="selectedTheme===theme"
+        [size]="200"
+        [image]="THEMES[theme].background"
+        (click)="selectTheme(theme)"></tile>
+</div>

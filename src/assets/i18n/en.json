@@ -6,5 +6,12 @@
   "language": {
     "fr": "French",
     "en": "English"
+  },
+  "theme": {
+    "t1": "Rights and Duties",
+    "t2": "Institutional and Political System",
+    "t3": "History, Geography, and Culture",
+    "t4": "Principles and Values of the Republic",
+    "t5": "Living in French Society"
   }
 }

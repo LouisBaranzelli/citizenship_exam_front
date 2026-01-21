@@ -1,0 +1,43 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+  align-items: center;
+
+}
+
+.tile{
+
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 0.3s ease;
+  border-radius: 20px;
+
+}
+
+.tile:hover{
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tile:active {
+  transform: scale(0.95);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+.tile img {
+  border-radius: 20px;
+}
+.tile.isSelected {
+  filter: brightness(1.5);
+  transition: filter 0.3s ease;
+}
+
+
+.overlay-text {
+
+  color: black;
+  font-size: 0.8rem;
+  width: 100%;
+  text-align: center;
+}
+
