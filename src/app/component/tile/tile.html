@@ -2,5 +2,5 @@
 <div class="tile" [ngClass]="{'isSelected': selected}" [style.width.px]="size" [style.height.px]="size" (click)="clickOnTile()">
   <img [src]="image" [alt]="" [style.width.px]="size" [style.height.px]="size" >
 </div>
-<div class="overlay-text">{{label | translate | capitalize}}</div>
+<div class="overlay-text" [ngClass]="{'isSelected':selected}">{{label | translate | capitalize}}</div>
 </div>

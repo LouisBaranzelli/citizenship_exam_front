@@ -12,11 +12,11 @@ export class QuestionStateService {
 
   private apiService: ApiQuestionService;
 
-  private level: Level | null = null;
+  public level: Level | null = null;
 
   public theme: Theme | null = null
 
-  private language =  signal<Language>(DEFAULT_LANGUAGE)
+  public language =  signal<Language>(DEFAULT_LANGUAGE)
 
   private cursor = signal<number | null>(null);
 
