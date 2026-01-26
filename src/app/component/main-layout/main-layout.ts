@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {DropDown} from '../drop-down/drop-down';
-import {DEFAULT_LANGUAGE, getCodeLanguage, Language, LANGUAGES} from '../../model/Language';
+import {findLanguage, getCodeLanguage, Language, LANGUAGES} from '../../model/Language';
 import {TranslateService} from '@ngx-translate/core';
 import {Tile} from '../tile/tile';
 import {ThemeID, THEMES} from '../../model/Theme';
@@ -17,7 +17,6 @@ import {findLevel, Level, LEVELS} from '../../model/Level';
 })
 export class MainLayout {
 
-  protected readonly DEFAULT_LANGUAGE = DEFAULT_LANGUAGE;
   protected readonly LANGUAGES = LANGUAGES;
   private translationService: TranslateService;
   private questionService: QuestionStateService;
@@ -29,6 +28,7 @@ export class MainLayout {
 
   changeLanguage(language: string){
     this.translationService.use(getCodeLanguage(language))
+    this.questionService.language.set(findLanguage(language))
 
   }
 

@@ -38,7 +38,13 @@ span {
 }
 
 .dropdown-list li:hover {
-  background-color: #eee;
+  background: radial-gradient(
+    circle,
+    gray 0%,   /* centre foncé */
+    darkgray 100% /* extérieur gris clair */
+  );
+  opacity: 50%;
+  border-radius: 10px;
 }
 
 

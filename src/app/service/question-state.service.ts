@@ -1,9 +1,10 @@
-import {computed, effect, Injectable, Injector, output, runInInjectionContext, signal} from '@angular/core';
+import {computed, effect, Injectable, Injector, runInInjectionContext, signal} from '@angular/core';
 import {Question} from '../model/Question';
 import {Theme} from '../model/Theme';
-import {DEFAULT_LANGUAGE, Language} from '../model/Language';
+import {DEFAULT_LANGUAGE, Language, LanguageID, LANGUAGES} from '../model/Language';
 import {ApiQuestionService} from './api-question.service';
 import {Level} from '../model/Level';
+import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 @Injectable({
   providedIn: 'root',
@@ -12,50 +13,90 @@ export class QuestionStateService {
 
   private apiService: ApiQuestionService;
 
-  public level: Level | null = null;
+  public level: Level | null = Level.L1;
 
-  public theme: Theme | null = null
+  public theme = signal<Theme | null>(null);
 
   public language =  signal<Language>(DEFAULT_LANGUAGE)
 
-  private cursor = signal<number | null>(null);
+  public cursor = signal<number | null>(null);
 
   public historyId = signal<Array<number>>([]);
 
-  private cacheQuestion = signal<Map<string, Map<number, Question>>>(new Map())
+  private cacheQuestion = signal<Map<string, Map<number, Question>>>(new Map()) // id langue {id question / Question)
 
   constructor(apiService: ApiQuestionService, injector: Injector) {
     this.apiService = apiService
 
     runInInjectionContext(injector, () => {
+
+      for (let language of LANGUAGES){
+        this.cacheQuestion.update(old => {
+          const newMap = new Map(old);
+          newMap.set(language, new Map<number, Question>());
+          return newMap;
+        });
+      }
+
       effect(() => {
-        const q = this.selectedQuestion();
-        const index = this.cursor();
+        const language = this.language();
+        const historyId = this.historyId();
+        const cursor = this.cursor();
+
+        console.log("effect language activate")
+        if (cursor !== null && cursor < historyId.length) {
+          const id = historyId[cursor];
+          const cache = this.cacheQuestion().get(language.id)!
+
+          if (!cache.has(id)) {
+            (async () => {
+              await this.fetchQuestion(historyId[cursor], language);
+            })();
+            console.log("fetch has been performed")
+          }
+          else {
+            console.log("No need to fetch")
+
+          }
+        }
       });
-    });
-  }
+
+    })}
+
+
 
   public selectedQuestion = computed(() => {
+
+
+    console.log("Selected question recalculated ")
+
     let index: number | null = this.cursor();
+    console.log("actual cursor: " + index)
+
     let language: Language = this.language()
-    let cache: Map<number, Question> = this.cacheQuestion().get(language.id) ?? new Map<number, Question>()
-    let previousQuestions: Array<number> = this.historyId();
+    let cache: Map<number, Question> = this.cacheQuestion().get(language.id)!
+    let historyId: Array<number> = this.historyId();
 
 
-    if (index === null || previousQuestions.length === 0){
+    if (index === null || historyId.length === 0){
       return null
     }
 
-    let idSelected: number = index <previousQuestions.length ? previousQuestions[index] : previousQuestions[previousQuestions.length - 1]
+    let idSelected: number = index < historyId.length ? historyId[index] : historyId[historyId.length - 1]
+    console.log("question id: " + idSelected + " at cursor: " + index)
+
     let questionCache: Question | null = cache.get(idSelected) ?? null;
     if (questionCache === null) {
+      console.log("question in cache not found")
       return null;
     }
+    console.log("question in cache found: " + questionCache.label)
     return questionCache;
 
   })
 
   public goToPrevious() {
+    console.log("go to previous")
     if (this.cursor() === null || this.cursor() === 0){
       return;
     }
@@ -64,29 +105,35 @@ export class QuestionStateService {
 
   public async goToNext() {
 
+    console.log("goToNext")
     let index: number | null = this.cursor()
     if (index !== null && index < this.historyId().length - 1){
       this.cursor.update((i => i !== null ? i+1 : null))
       return;
     }
 
-    if (this.level === null || this.theme === null) {
+    const theme: Theme | null = this.theme()
+    if (this.level === null || theme === null) {
       return
     }
 
     let newIndex: number;
     let question:  Question | null
+    console.log("fetche random question")
     if (this.cursor() === null){
-      question = await this.apiService.fetchRandomQuestion(this.level, this.theme, this.language(), [])
+      question = await this.apiService.fetchRandomQuestion(this.level, theme, this.language(), [])
+
       newIndex = 0
     } else {
-      question = await this.apiService.fetchRandomQuestion(this.level, this.theme, this.language(), this.historyId())
+      question = await this.apiService.fetchRandomQuestion(this.level, theme, this.language(), this.historyId())
       newIndex = this.historyId().length
     }
      if (question === null){
+       console.log("question fetched is null")
        return;
      } else{
        this.updateCache(this.language(), question);
+       console.log("fetched: " + question.label)
        this.historyId.update(ids => [...ids, question.id])
        this.cursor.set(newIndex)
      }
@@ -94,24 +141,24 @@ export class QuestionStateService {
   }
 
   private async fetchQuestion(id: number, language: Language) {
-    let cache: Map<number, Question> = this.getCache(language)
-    let output: Question | null = cache.get(id) ?? null;
-    if (output === null){
-      const question: Question | null = await this.apiService.fetchQuestion(id, language);
-      if (question !== null) {
-        this.updateCache(language, question);
-      }
+    console.log("fetch new question id: " + id + " language: " + language.id)
+    const question: Question | null = await this.apiService.fetchQuestion(id, language);
+    if (question !== null) {
+      console.log("Update du cache avec question id: " + id + " language: " + language.id + " question: " + question.label)
+      this.updateCache(language, question);
     }
+
   }
 
-  private getCache(language: Language): Map<number, Question> {
-    return  this.cacheQuestion().get(language.id) ?? new Map()
-  }
 
-  private updateCache(language: Language, question: Question){
+  private updateCache(language: Language, question: Question | null){
+    if (question === null){
+      console.log("failed to save in the cache")
+      return
+    }
     this.cacheQuestion.update(old => {
       const newMap = new Map(old);
-      let mapLanguageSelected : Map<number, Question> = newMap.get(language.id) ?? new Map()
+      let mapLanguageSelected : Map<number, Question> = newMap.get(language.id)!
       mapLanguageSelected.set(question.id,  question)
       newMap.set(language.id, mapLanguageSelected)
       return newMap

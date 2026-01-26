@@ -27,9 +27,9 @@ export class ThemeTile {
   protected themeIds: ThemeID[] = Object.values(ThemeID);
 
   selectTheme(themeId: ThemeID){
-    this.questionService.theme = {id: themeId}
+    this.questionService.theme.set({id: themeId})
     this.selectedTheme = themeId
-    console.log(themeId)
+    console.log("theme changed: " + themeId)
   }
 
 }

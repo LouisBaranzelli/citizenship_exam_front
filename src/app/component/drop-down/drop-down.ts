@@ -28,12 +28,12 @@ export class DropDown {
 
   protected toggle() {
     this.open = !this.open
-    console.log(this.open)
   }
 
   protected selectItem(item: string) {
     this.open = false;
     this.itemSelected = item
+    console.log("select :" + item)
     this.selectedChange.emit(item)
   }
 }
