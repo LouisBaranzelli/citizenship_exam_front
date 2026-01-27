@@ -1,0 +1,34 @@
+.container{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+}
+
+selector-right-left {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+.question{
+  height: 20%;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.7); /* noir à 50% de transparence */
+  color: white;
+  z-index: 1;
+  border-radius: 5px;
+  margin-bottom: 1%;
+}

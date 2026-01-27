@@ -1,0 +1,52 @@
+.container{
+  font-size: 30px;
+  border-radius: 10px;
+  padding: 15px;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.container.notDisplayed.notSelected {
+  color: #ffffff;
+  background: rgba(58, 58, 58, 0.85);
+  border: 2px solid #000;
+
+}
+
+.container.notDisplayed:hover {
+  /*background: rgba(68, 68, 68, 0.9);*/
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+
+.container.notDisplayed.selected {
+  background: rgba(220, 220, 220, 0.9);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #222;
+}
+
+.container.rightAnswer{
+  border: 4px solid rgba(0, 200, 0, 0.9);
+}
+.container.wrongAnswer {
+  border: 4px solid rgba(255, 0, 0, 0.9);
+}
+
+.container.isMistake{
+  background: rgba(255, 165, 0, 0.9);
+  color: #222;
+}
+
+.container.isNotAMistake {
+  background: rgba(180, 255, 180, 0.9);
+  color: #222;
+}
+
+
