@@ -7,6 +7,11 @@
     "fr": "français",
     "en": "anglais"
   },
+  "level": {
+    "l1": "simple",
+    "l2": "moyen",
+    "l3": "dur"
+  },
   "theme": {
     "t1": "droits et devoirs",
     "t2": "système institutionnel et politique",

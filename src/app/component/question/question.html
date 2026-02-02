@@ -1,5 +1,17 @@
 <div class="container">
     <img src="assets/images/background-question/t1/1.webp">
-    <selector-right-left></selector-right-left>
+    <div class="answer-zone">
+      <answers-list class="answer" [answers]="[
+      { id: 'a', label: 'Bonjour', isCorrect: true },
+      { id: 'b', label: 'Salut', isCorrect: false },
+      { id: 'b', label: 'Salut', isCorrect: false },
+      { id: 'b', label: 'Salut', isCorrect: false },
+      { id: 'b', label: 'Salut Louis comment ca va? par ce que moi je vais bien, merci beacoup et toi comment ca va ', isCorrect: false },
+      { id: 'c', label: 'Hello', isCorrect: false },
+      { id: 'c', label: 'Hello', isCorrect: false }
+      ]"></answers-list>
+    </div>
+    <selector-right-left>
+    </selector-right-left>
     <div class="question">{{labelQuestion() ?? 'bonjour'}}</div>
 </div>

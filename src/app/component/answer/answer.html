@@ -1,4 +1,4 @@
-<div class="container"
+<div (click)="toggleSelected()" #textContainer class="container"
            [ngClass]="[
       !isSelected && !displayed? 'notDisplayed notSelected' : '',
       isSelected && !displayed? 'notDisplayed selected' : '',
@@ -9,5 +9,5 @@
       isCorrect && displayed && isSelected? 'isNotAMistake' : ''
 
       ]">
-  <div (click)="toggleSelected()">{{label}}</div>
+  <div>{{label}}</div>
 </div>

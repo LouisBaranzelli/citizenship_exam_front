@@ -3,6 +3,11 @@
     "drop-down": {
     }
   },
+  "level": {
+    "l1": "easy",
+    "l2": "medium",
+    "l3": "hard"
+  },
   "language": {
     "fr": "French",
     "en": "English"

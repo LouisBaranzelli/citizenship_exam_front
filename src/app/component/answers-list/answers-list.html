@@ -1,0 +1,7 @@
+<div class="container">
+  <div *ngFor="let row of rows" class="row">
+    <div *ngFor="let answer of row">
+      <answer [label]="answer.label" [displayed]="false" [isCorrect]="answer.isCorrect"></answer>
+    </div>
+  </div>
+</div>

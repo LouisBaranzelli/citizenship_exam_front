@@ -1,11 +1,13 @@
 import {Component, computed, Input, Signal, signal, WritableSignal} from '@angular/core';
 import {QuestionStateService} from '../../service/question-state.service';
 import {SelectorRightLeft} from '../selector-right-left/selector-right-left';
+import {AnwersList} from '../answers-list/anwers-list';
 
 @Component({
   selector: 'question',
   imports: [
-    SelectorRightLeft
+    SelectorRightLeft,
+    AnwersList
   ],
   templateUrl: './question.html',
   styleUrl: './question.css',

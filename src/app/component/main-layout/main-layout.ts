@@ -8,10 +8,11 @@ import {ThemeTile} from '../theme-tile/theme-tile';
 import {Question} from '../question/question';
 import {QuestionStateService} from '../../service/question-state.service';
 import {findLevel, Level, LEVELS} from '../../model/Level';
+import {AnwersList} from '../answers-list/anwers-list';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [DropDown, Tile, ThemeTile, Question],
+  imports: [DropDown, Tile, ThemeTile, Question, AnwersList],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
