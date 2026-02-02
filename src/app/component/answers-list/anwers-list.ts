@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, computed, Input, OnInit, Signal} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {Answer} from '../../model/Answer';
 import {AnswerButton} from '../answer/answer';
@@ -12,17 +12,19 @@ import {AnswerButton} from '../answer/answer';
   templateUrl: './answers-list.html',
   styleUrl: './answers-list.css',
 })
-export class AnwersList implements OnInit{
-   @Input({required: true}) answers!: Answer[]
 
-  public rows: Answer[][] = [];
+export class AnswersList {
+  @Input({required: true}) answers!: Signal<Answer[]>;
 
-  ngOnInit() {
-     this.answers.sort(() => Math.random() - 0.5);
-     const chunkSize = 3;
-     for (let i = 0; i < this.answers.length; i += chunkSize) {
-       this.rows.push(this.answers.slice(i, i + chunkSize));
-     }
+  rows = computed(() => {
+    const shuffled = [...this.answers()].sort(() => Math.random() - 0.5);
+    const chunkSize = 3;
+    const result: Answer[][] = [];
 
-   }
+    for (let i = 0; i < shuffled.length; i += chunkSize) {
+      result.push(shuffled.slice(i, i + chunkSize));
+    }
+
+    return result;
+  });
 }
