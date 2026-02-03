@@ -32,7 +32,6 @@ export class Question {
    this.answers = computed(() => {
      const question = questionService.selectedQuestion();
      return question !== null && question!.answers ? [...question!.answers] : [];
-
    });
 
 

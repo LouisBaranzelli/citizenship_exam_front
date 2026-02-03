@@ -1,20 +1,26 @@
-<div style="
-  display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    background-image: url('assets/images/background.jpeg'); background-repeat: no-repeat;">
+<div class="page-container">
 
-  <div style="display: flex; flex-direction: row ; justify-content: flex-end; width: 100%; height: 1vh; gap: 1%; padding-right: 5%; z-index: 10">
-    <app-drop-down [items]="LANGUAGES" [label]="LANGUAGES[0]" [width]="100" (selectedChange)="changeLanguage($event)"></app-drop-down>
-    <app-drop-down [items]="LEVELS" [label]="LEVELS[0]" [width]="100" (selectedChange)="changeLevel($event)"></app-drop-down>
+  <!-- Top bar avec dropdowns -->
+  <div class="top-bar">
+    <app-drop-down
+      [items]="LANGUAGES"
+      [label]="LANGUAGES[0]"
+      [width]="100"
+      (selectedChange)="changeLanguage($event)">
+    </app-drop-down>
+
+    <app-drop-down
+      [items]="LEVELS"
+      [label]="LEVELS[0]"
+      [width]="100"
+      (selectedChange)="changeLevel($event)">
+    </app-drop-down>
   </div>
 
-  <!--<tile [label]="ThemeID.T1" [size]="100" [image]="THEMES[ThemeID.T1].background"></tile>-->
-  <theme-tile style="height: 30vh ; width: 90%"></theme-tile>
-  <question style="height: 50vh; ; width: 90%"> </question>
+  <!-- Theme tile -->
+  <theme-tile class="theme-tile"></theme-tile>
+
+  <!-- Question zone -->
+  <question class="question-zone"></question>
 
 </div>

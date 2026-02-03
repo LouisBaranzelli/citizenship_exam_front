@@ -1,50 +1,74 @@
+/* Rotation – même classe, animation plus propre */
 .rotate {
   transform: rotate(90deg);
+  transition: transform 0.25s ease;
 }
 
-.container{
-  display: inline-flex; ;
+/* Container */
+.container {
+  display: inline-flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  position: relative;
 }
 
+/* Header */
 .head {
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
+
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
+.head:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Icon */
 span {
   display: inline-block;
   transform: rotate(0);
-  transition: transform 0.5s;
+  transition: transform 0.25s ease;
 }
 
+/* Dropdown */
 .dropdown-list {
   margin: 0;
-  padding: 0;
+  padding: 6px;
   list-style: none;
+
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
+
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-
+/* Item */
 .dropdown-list li {
   cursor: pointer;
   width: 100%;
-  text-align: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #222;
+
+  transition: background 0.15s ease;
 }
 
+/* Hover moderne */
 .dropdown-list li:hover {
-  background: radial-gradient(
-    circle,
-    gray 0%,   /* centre foncé */
-    darkgray 100% /* extérieur gris clair */
-  );
-  opacity: 50%;
-  border-radius: 10px;
+  background: #f4f6f8;
 }
-
-

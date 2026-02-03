@@ -147,7 +147,6 @@ export class QuestionStateService {
       console.log("Update du cache avec question id: " + id + " language: " + language.id + " question: " + question.label)
       this.updateCache(language, question);
     }
-
   }
 
 
@@ -164,6 +163,5 @@ export class QuestionStateService {
       return newMap
     })
   }
-
 
 }

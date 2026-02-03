@@ -1,49 +1,77 @@
+/* =========================
+   ARROW NAVIGATION – GLASS UI
+   ========================= */
+
 .container {
   display: flex;
-  flex-direction: row ;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
   width: 100%;
   height: 100%;
 }
 
+/* Base button */
 .arrow-button {
-  width: 50px;
-  height: 50px;
-  background-color: #ccc;
-  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+
+  border-radius: 50%;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+  font-size: 24px;
+  color: #fff;
+
+  /* Glass effect over image */
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 8px 20px rgba(0, 0, 0, 0.45);
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
+/* Hover */
 .arrow-button:hover {
-  background-color: #aaa;
-  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 12px 28px rgba(0, 0, 0, 0.6);
 }
 
-.arrow-button.left{
+/* Active */
+.arrow-button:active {
+  transform: scale(0.95);
+}
+
+/* Left arrow rotation */
+.arrow-button.left {
   transform: rotate(180deg);
 }
 
-.arrow-button.disabe{
-
-}
-
+/* Disabled */
 .arrow-button.disabled {
-  /*background-color: #e0e0e0;*/
-  color: #999;
+  opacity: 0.45;
   cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.6;
   pointer-events: none;
+
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    none;
 }
 
 .arrow-button.disabled:hover {
   transform: none;
-  background-color: #e0e0e0;
 }
