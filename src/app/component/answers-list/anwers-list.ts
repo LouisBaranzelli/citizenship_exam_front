@@ -15,6 +15,7 @@ import {AnswerButton} from '../answer/answer';
 
 export class AnswersList {
   @Input({required: true}) answers!: Signal<Answer[]>;
+  @Input({required: true}) showResults!: Signal<boolean>;
 
   rows = computed(() => {
     const shuffled = [...this.answers()].sort(() => Math.random() - 0.5);

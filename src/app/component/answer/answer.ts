@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, Signal, ViewChild} from '@angular/core';
 import {NgClass} from '@angular/common';
 
 @Component({
@@ -16,7 +16,7 @@ export class AnswerButton {
 
   @Input({required: true}) label!: string;
   @Input({required: true}) isCorrect!: boolean;
-  @Input({required: true}) displayed!: boolean;
+  @Input({required: true}) showResults!: Signal<boolean>;
   @ViewChild('textContainer') textContainer!: ElementRef<HTMLDivElement>
 
   protected toggleSelected() {

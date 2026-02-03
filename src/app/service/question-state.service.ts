@@ -25,6 +25,9 @@ export class QuestionStateService {
 
   private cacheQuestion = signal<Map<string, Map<number, Question>>>(new Map()) // id langue {id question / Question)
 
+  // pour indiquer si une question a été validé ou pas
+  public showResults = signal<Map<number, boolean>>(new Map()) // id Question, ...
+
   constructor(apiService: ApiQuestionService, injector: Injector) {
     this.apiService = apiService
 

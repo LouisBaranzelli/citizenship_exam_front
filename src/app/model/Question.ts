@@ -5,5 +5,5 @@ export interface Question {
   id: number,
   language: Language,
   label: string,
-  answers: Answer[]
+  answers: Answer[],
 }

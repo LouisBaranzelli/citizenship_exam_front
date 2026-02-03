@@ -42,12 +42,21 @@
    TOP BAR
    =============================== */
 .top-bar {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 1%;
   width: 100%;
   padding: 1rem 5%;
+  height: 6%;
+
+}
+
+.dropdowncontainer{
+  position: relative;
+  width: 6%;
+  height: 100%;
 }
 
 /* Ajouter glassmorphism aux dropdowns */
@@ -57,13 +66,17 @@
   padding: 6px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   color: #222;
+  position: absolute;
+  top: 25%;
+  z-index: 10;
 }
+
 
 /* ===============================
    THEME TILE
    =============================== */
 .theme-tile {
-  height: 30vh;
+  height: 30%;
   width: 100%;
   max-width: 1200px;
 
@@ -81,7 +94,7 @@
    QUESTION ZONE
    =============================== */
 .question-zone {
-  height: 50vh;
+  height: 64%;
   width: 100%;
   max-width: 1200px;
 
@@ -100,11 +113,13 @@
    =============================== */
 @media (max-width: 768px) {
   .top-bar {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
 
   .theme-tile, .question-zone {
     width: 95%;
   }
+
+
 }

@@ -1,12 +1,12 @@
 <div (click)="toggleSelected()" #textContainer class="container"
            [ngClass]="[
-      !isSelected && !displayed? 'notDisplayed notSelected' : '',
-      isSelected && !displayed? 'notDisplayed selected' : '',
-      isCorrect && displayed ? 'rightAnswer' : '',
-      !isCorrect && displayed ? 'wrongAnswer' : '',
-      isCorrect && displayed && !isSelected? 'isMistake' : '',
-      !isCorrect && displayed && isSelected? 'isMistake' : '',
-      isCorrect && displayed && isSelected? 'isNotAMistake' : ''
+      !isSelected && !showResults()? 'notDisplayed notSelected' : '',
+      isSelected && !showResults()? 'notDisplayed selected' : '',
+      isCorrect && showResults() ? 'rightAnswer' : '',
+      !isCorrect && showResults() ? 'wrongAnswer' : '',
+      isCorrect && showResults() && !isSelected? 'isMistake' : '',
+      !isCorrect && showResults() && isSelected? 'isMistake' : '',
+      isCorrect && showResults() && isSelected? 'isNotAMistake' : ''
       ]">
   <div>{{label}}</div>
 </div>

@@ -29,6 +29,9 @@ export class ThemeTile {
   selectTheme(themeId: ThemeID){
     this.questionService.theme.set({id: themeId})
     this.selectedTheme = themeId
+    if (this.questionService.selectedQuestion() === null){
+      this.questionService.goToNext()
+    }
     console.log("theme changed: " + themeId)
   }
 

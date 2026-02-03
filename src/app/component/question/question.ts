@@ -21,17 +21,30 @@ export class Question {
 
   public labelQuestion: Signal<string>;
   protected answers: Signal<Answer[]>
+  protected showResults: Signal<boolean>;
 
  constructor(questionService: QuestionStateService) {
 
   this.labelQuestion = computed(() =>{
-   console.log(questionService.selectedQuestion()?.answers)
    return  questionService.selectedQuestion()?.label ?? ""
   }
  )
    this.answers = computed(() => {
      const question = questionService.selectedQuestion();
      return question !== null && question!.answers ? [...question!.answers] : [];
+   });
+
+   this.showResults = computed(() => {
+     const question = questionService.selectedQuestion();
+     const showResults: Map<number, boolean> = questionService.showResults()
+     if (question === null || showResults.get(question?.id) === null){
+       console.log("show results: False (question or id is null)")
+       return false
+     } else {
+       console.log("show results: " +  showResults.get(question!.id) || false + " for id: " + question!.id)
+
+       return  showResults.get(question!.id) || false
+     }
    });
 
 

@@ -17,7 +17,7 @@ export class ApiQuestionService {
             {id: '2', label:"Peut-être", isCorrect:false},
             {id: '3', label:"bien-sûr", isCorrect:false},
             ],
-    language: DEFAULT_LANGUAGE
+    language: DEFAULT_LANGUAGE,
   }
 
   private question2: Question = {
@@ -27,7 +27,7 @@ export class ApiQuestionService {
       {id: '1', label:"petit", isCorrect:false},
       {id: '2', label:"moyen", isCorrect:false},
     ],
-    language: DEFAULT_LANGUAGE
+    language: DEFAULT_LANGUAGE,
   }
   // private question3: Question = {
   //   id: 3,
@@ -41,7 +41,7 @@ export class ApiQuestionService {
     answers: [{id: '0', label:"Oui", isCorrect:true},
       {id: '1', label:"Non", isCorrect:false}
     ],
-    language: DEFAULT_LANGUAGE
+    language: DEFAULT_LANGUAGE,
   }
   // private question5: Question = {
   //   id: 5,
