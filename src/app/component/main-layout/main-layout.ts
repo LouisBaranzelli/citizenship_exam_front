@@ -11,7 +11,7 @@ import {findLevel, Level, LEVELS} from '../../model/Level';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [DropDown, Tile, ThemeTile, Question],
+  imports: [DropDown, ThemeTile, Question],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })

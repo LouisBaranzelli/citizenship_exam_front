@@ -17,10 +17,10 @@ export class ApiQuestionService {
   private question1: Question = {
     id: 0,
     question: "Quelle est la capital de la france ?",
-    answers: [{id: 0, answer:"Oui", isCorrect:true},
-            {id: 1, answer:"Non", isCorrect:false},
-            {id: 2, answer:"Peut-être", isCorrect:false},
-            {id: 3, answer:"bien-sûr", isCorrect:false},
+    answers: [{id: 0, answer:"Oui", correct:true},
+            {id: 1, answer:"Non", correct:false},
+            {id: 2, answer:"Peut-être", correct:false},
+            {id: 3, answer:"bien-sûr", correct:false},
             ],
     language: DEFAULT_LANGUAGE,
     theme: "T1",
@@ -30,9 +30,9 @@ export class ApiQuestionService {
   private question2: Question = {
     id: 2,
     question: "Quel est le plus grand pays ?",
-    answers: [{id: 0, answer:"Grand", isCorrect:true},
-      {id: 1, answer:"petit", isCorrect:false},
-      {id: 2, answer:"moyen", isCorrect:false},
+    answers: [{id: 0, answer:"Grand", correct:true},
+      {id: 1, answer:"petit", correct:false},
+      {id: 2, answer:"moyen", correct:false},
     ],
     language: DEFAULT_LANGUAGE,
     theme: "T1",
@@ -47,8 +47,8 @@ export class ApiQuestionService {
   private question4: Question = {
     id: 4,
     question: "Quel est le nom de notre planète ?",
-    answers: [{id: 0, answer:"Oui", isCorrect:true},
-      {id: 1, answer:"Non", isCorrect:false}
+    answers: [{id: 0, answer:"Oui", correct:true},
+      {id: 1, answer:"Non", correct:false}
     ],
     language: DEFAULT_LANGUAGE,
     theme: "T1",

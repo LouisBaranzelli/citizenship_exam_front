@@ -19,8 +19,13 @@ export class AnswerButton {
   @Input({required: true}) showResults!: Signal<boolean>;
   @ViewChild('textContainer') textContainer!: ElementRef<HTMLDivElement>
 
+  constructor() {
+  }
+
   protected toggleSelected() {
-    this.isSelected = !this.isSelected
+    if (!this.showResults()){
+      this.isSelected = !this.isSelected
+    }
   }
 
 

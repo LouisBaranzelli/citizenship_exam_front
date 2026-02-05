@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngFor="let row of rows()" class="row">
     <div *ngFor="let answer of row">
-      <answer [label]="answer.answer" [showResults]="showResults" [isCorrect]="answer.isCorrect"></answer>
+      <answer [label]="answer.answer" [showResults]="showResults" [isCorrect]="answer.correct"></answer>
     </div>
   </div>
 </div>
