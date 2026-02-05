@@ -30,7 +30,7 @@ export class QuestionStateService {
 
   constructor(apiService: ApiQuestionService, injector: Injector) {
     this.apiService = apiService
-
+    apiService.test()
     runInInjectionContext(injector, () => {
 
       for (let language of LANGUAGES){
@@ -93,7 +93,7 @@ export class QuestionStateService {
       console.log("question in cache not found")
       return null;
     }
-    console.log("question in cache found: " + questionCache.label)
+    console.log("question in cache found: " + questionCache.question)
     return questionCache;
 
   })
@@ -136,7 +136,7 @@ export class QuestionStateService {
        return;
      } else{
        this.updateCache(this.language(), question);
-       console.log("fetched: " + question.label)
+       console.log("fetched: " + question.question)
        this.historyId.update(ids => [...ids, question.id])
        this.cursor.set(newIndex)
      }
@@ -147,7 +147,7 @@ export class QuestionStateService {
     console.log("fetch new question id: " + id + " language: " + language.id)
     const question: Question | null = await this.apiService.fetchQuestion(id, language);
     if (question !== null) {
-      console.log("Update du cache avec question id: " + id + " language: " + language.id + " question: " + question.label)
+      console.log("Update du cache avec question id: " + id + " language: " + language.id + " question: " + question.question)
       this.updateCache(language, question);
     }
   }

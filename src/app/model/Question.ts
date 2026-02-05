@@ -4,6 +4,8 @@ import {Answer} from './Answer';
 export interface Question {
   id: number,
   language: Language,
-  label: string,
+  question: string,
   answers: Answer[],
+  theme: String,
+  level: String
 }

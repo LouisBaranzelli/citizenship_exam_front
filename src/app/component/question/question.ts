@@ -26,7 +26,7 @@ export class Question {
  constructor(questionService: QuestionStateService) {
 
   this.labelQuestion = computed(() =>{
-   return  questionService.selectedQuestion()?.label ?? ""
+   return  questionService.selectedQuestion()?.question ?? ""
   }
  )
    this.answers = computed(() => {

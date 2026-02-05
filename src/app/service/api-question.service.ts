@@ -3,6 +3,9 @@ import {DEFAULT_LANGUAGE, Language} from '../model/Language';
 import {Question} from '../model/Question';
 import {Level} from '../model/Level';
 import {Theme} from '../model/Theme';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {firstValueFrom} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,23 +14,27 @@ export class ApiQuestionService {
 
   private question1: Question = {
     id: 0,
-    label: "Quelle est la capital de la france ?",
-    answers: [{id: '0', label:"Oui", isCorrect:true},
-            {id: '1', label:"Non", isCorrect:false},
-            {id: '2', label:"Peut-être", isCorrect:false},
-            {id: '3', label:"bien-sûr", isCorrect:false},
+    question: "Quelle est la capital de la france ?",
+    answers: [{id: 0, answer:"Oui", isCorrect:true},
+            {id: 1, answer:"Non", isCorrect:false},
+            {id: 2, answer:"Peut-être", isCorrect:false},
+            {id: 3, answer:"bien-sûr", isCorrect:false},
             ],
     language: DEFAULT_LANGUAGE,
+    theme: "T1",
+    level: "L1",
   }
 
   private question2: Question = {
     id: 2,
-    label: "Quel est le plus grand pays ?",
-    answers: [{id: '0', label:"Grand", isCorrect:true},
-      {id: '1', label:"petit", isCorrect:false},
-      {id: '2', label:"moyen", isCorrect:false},
+    question: "Quel est le plus grand pays ?",
+    answers: [{id: 0, answer:"Grand", isCorrect:true},
+      {id: 1, answer:"petit", isCorrect:false},
+      {id: 2, answer:"moyen", isCorrect:false},
     ],
     language: DEFAULT_LANGUAGE,
+    theme: "T1",
+    level: "L1",
   }
   // private question3: Question = {
   //   id: 3,
@@ -37,11 +44,14 @@ export class ApiQuestionService {
   // }
   private question4: Question = {
     id: 4,
-    label: "Quel est le nom de notre planète ?",
-    answers: [{id: '0', label:"Oui", isCorrect:true},
-      {id: '1', label:"Non", isCorrect:false}
+    question: "Quel est le nom de notre planète ?",
+    answers: [{id: 0, answer:"Oui", isCorrect:true},
+      {id: 1, answer:"Non", isCorrect:false}
     ],
     language: DEFAULT_LANGUAGE,
+    theme: "T1",
+    level: "L1",
+
   }
   // private question5: Question = {
   //   id: 5,
@@ -50,9 +60,11 @@ export class ApiQuestionService {
   //   language: DEFAULT_LANGUAGE
   // }
   private questions: Question[];
+  private httpClient: HttpClient
 
-  constructor() {
+  constructor(httpClient: HttpClient) {
     this.questions = [this.question1, this.question2, this.question4];
+    this.httpClient = httpClient
   }
 
 
@@ -61,21 +73,24 @@ export class ApiQuestionService {
   public async fetchQuestion(id: number, language: Language): Promise<Question | null> {
     let question = this.getRandomQuestion()
     question.id = id
-    console.log("Generate random question to simulate api: " + question.label)
-
+    console.log("Generate random question to simulate api: " + question.question)
     return new Promise(resolve => {
       setTimeout(() => resolve(question), 500)
     })
+
   }
 
   public async fetchRandomQuestion(level: Level, theme: Theme, language: Language, alreadyAskedQuestions: number[]): Promise<Question | null> {
 
-    let question = this.getRandomQuestion()
-    console.log("Generate random question to simulate api: " + question.label)
+    try {
+      const question: Question = await firstValueFrom(this.httpClient.get<Question>(environment.apiUrl + "/questions/" + language.id.slice(-2) + "/" + theme.id.slice(-2) + "/" + level.slice(-2)))
+      console.log(question.answers.length)
+      return question
+    } catch (error){
+      console.error(error)
+      return null
+    }
 
-    return new Promise(resolve => {
-      setTimeout(() => resolve(question), 500)
-    })
   }
 
   getRandomQuestion(): Question{
@@ -84,5 +99,9 @@ export class ApiQuestionService {
     const randomQuestion = this.questions[randomIndex];
     return randomQuestion
 
+  }
+
+  public test() {
+    this.httpClient.get(environment.apiUrl + "/questions/test").subscribe(res => console.log(res))
   }
 }
