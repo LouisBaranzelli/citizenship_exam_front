@@ -13,7 +13,7 @@ export class QuestionStateService {
 
   private apiService: ApiQuestionService;
 
-  public level: Level | null = Level.L1;
+  public level = signal<Level>(Level.L1);
 
   public theme = signal<Theme | null>(null);
 
@@ -28,6 +28,19 @@ export class QuestionStateService {
   // pour indiquer si une question a été validé ou pas
   public showResults = signal<Map<number, boolean>>(new Map()) // id Question, ...
 
+  public disableNextQuestion = computed(() => {
+    const theme: Theme | null = this.theme()
+    const level: Level | null = this.level()
+    if (!theme || !level) {
+      return true
+    } else {
+      if (!this.apiService.mapRunningOutOfQuestion().has(this.apiService.getKey(theme, level))) {
+        return false
+      }
+      return this.apiService.mapRunningOutOfQuestion().get(this.apiService.getKey(theme, level))
+    }
+
+  })
   constructor(apiService: ApiQuestionService, injector: Injector) {
     this.apiService = apiService
     apiService.test()
@@ -63,6 +76,8 @@ export class QuestionStateService {
           }
         }
       });
+
+
 
     })}
 
@@ -124,11 +139,11 @@ export class QuestionStateService {
     let question:  Question | null
     console.log("fetche random question")
     if (this.cursor() === null){
-      question = await this.apiService.fetchRandomQuestion(this.level, theme, this.language(), [])
+      question = await this.apiService.fetchRandomQuestion(this.level(), theme, this.language(), [])
 
       newIndex = 0
     } else {
-      question = await this.apiService.fetchRandomQuestion(this.level, theme, this.language(), this.historyId())
+      question = await this.apiService.fetchRandomQuestion(this.level(), theme, this.language(), this.historyId())
       newIndex = this.historyId().length
     }
      if (question === null){

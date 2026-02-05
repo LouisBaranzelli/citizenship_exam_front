@@ -1,4 +1,4 @@
-import {Component, computed, effect, Signal} from '@angular/core';
+import {Component, computed, effect, signal, Signal} from '@angular/core';
 import {QuestionStateService} from '../../service/question-state.service';
 import {Question} from '../../model/Question';
 
@@ -10,13 +10,16 @@ import {Question} from '../../model/Question';
 })
 export class SelectorRightLeft {
   private questionService: QuestionStateService;
-  protected nextIsDisable: Signal<boolean>;
+  protected nextIsDisable = signal<boolean>(false);
   protected previousIsDisable: Signal<boolean>;
   protected showAnswerIsDisable: Signal<boolean>;
 
   constructor(questionService: QuestionStateService) {
     this.questionService = questionService
-    this.nextIsDisable = computed(() => questionService.theme() === null)
+    effect(() => {
+      this.nextIsDisable.set(this.questionService.disableNextQuestion()!)
+    }
+    )
     this.previousIsDisable = computed(() =>
       questionService.cursor() == 0 || questionService.cursor() === null)
 

@@ -33,7 +33,7 @@ export class MainLayout {
   }
 
   changeLevel(level: string){
-    this.questionService.level = findLevel(level)
+    this.questionService.level.set(findLevel(level))
   }
 
   protected readonly THEMES = THEMES;

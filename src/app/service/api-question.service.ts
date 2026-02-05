@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, signal, Signal} from '@angular/core';
 import {DEFAULT_LANGUAGE, Language} from '../model/Language';
 import {Question} from '../model/Question';
 import {Level} from '../model/Level';
@@ -11,6 +11,8 @@ import {firstValueFrom} from 'rxjs';
   providedIn: 'root',
 })
 export class ApiQuestionService {
+
+  public mapRunningOutOfQuestion =  signal<Map<string, boolean>>(new Map<string, boolean>())
 
   private question1: Question = {
     id: 0,
@@ -77,20 +79,22 @@ export class ApiQuestionService {
     return new Promise(resolve => {
       setTimeout(() => resolve(question), 500)
     })
-
   }
 
   public async fetchRandomQuestion(level: Level, theme: Theme, language: Language, alreadyAskedQuestions: number[]): Promise<Question | null> {
 
     try {
-      const question: Question = await firstValueFrom(this.httpClient.get<Question>(environment.apiUrl + "/questions/" + language.id.slice(-2) + "/" + theme.id.slice(-2) + "/" + level.slice(-2)))
-      console.log(question.answers.length)
+      const question: Question = await firstValueFrom(this.httpClient.post<Question>(environment.apiUrl + "/questions/" + language.id.slice(-2) + "/" + theme.id.slice(-2) + "/" + level.slice(-2), alreadyAskedQuestions))
       return question
     } catch (error){
       console.error(error)
+      this.mapRunningOutOfQuestion.update((old) => {
+        const newMap: Map<string, boolean> = new Map(old)
+        newMap.set(this.getKey(theme, level), true)
+        return newMap
+      })
       return null
     }
-
   }
 
   getRandomQuestion(): Question{
@@ -103,5 +107,9 @@ export class ApiQuestionService {
 
   public test() {
     this.httpClient.get(environment.apiUrl + "/questions/test").subscribe(res => console.log(res))
+  }
+
+  public getKey(theme:Theme, level: Level) : string {
+    return `${theme}-${level}`
   }
 }
