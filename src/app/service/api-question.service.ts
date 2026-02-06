@@ -38,6 +38,7 @@ export class ApiQuestionService {
 
     try {
       const question: Question = await firstValueFrom(this.httpClient.post<Question>(environment.apiUrl + "/questions/" + language.id.slice(-2) + "/" + theme.id.slice(-2) + "/" + level.slice(-2), alreadyAskedQuestions))
+      question.answers.forEach(a => a.isSelected = false)
       return question
     } catch (error){
       console.error(error)

@@ -34,4 +34,8 @@ export class AnswersList {
 
     return result;
   });
+
+  selelectionQuestion(answer: Answer, isSelected: boolean){
+    this.answers().find(a => a.id === answer.id)!.isSelected = isSelected
+  }
 }

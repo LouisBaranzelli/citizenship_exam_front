@@ -5,6 +5,7 @@ import {DEFAULT_LANGUAGE, Language, LanguageID, LANGUAGES} from '../model/Langua
 import {ApiQuestionService} from './api-question.service';
 import {Level} from '../model/Level';
 import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
+import {queries} from '@testing-library/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -69,7 +70,17 @@ export class QuestionStateService {
 
           if (!cache.has(id)) {
             (async () => {
-              await this.fetchQuestion(historyId[cursor], language);
+              let questionToFetchInAnOtherLang = null
+              for (const langID of Object.values(LanguageID))
+              {
+                questionToFetchInAnOtherLang = this.cacheQuestion().get(langID)?.get(historyId[cursor])
+                if (questionToFetchInAnOtherLang !== null){
+                  break
+                }
+              }
+              if (questionToFetchInAnOtherLang !== null){
+                await this.fetchQuestion(questionToFetchInAnOtherLang!, language);
+              }
             })();
             console.log("fetch has been performed")
           }
@@ -161,11 +172,15 @@ export class QuestionStateService {
 
   }
 
-  private async fetchQuestion(id: number, language: Language) {
-    console.log("fetch new question id: " + id + " language: " + language.id)
-    const question: Question | null = await this.apiService.fetchQuestion(id, language);
+  private async fetchQuestion(questionInFirstLang: Question, language: Language) {
+    console.log("fetch new question id: " + questionInFirstLang.id + " language: " + language.id)
+    const question: Question | null = await this.apiService.fetchQuestion(questionInFirstLang.id, language);
     if (question !== null) {
-      console.log("Update du cache avec question id: " + id + " language: " + language.id + " question: " + question.question)
+      console.log("Update du cache avec question id: " + questionInFirstLang.id + " language: " + language.id + " question: " + question.question)
+      question.answers.forEach(a => {
+        // suppose que les traductions sont dans le même ordre
+       a.isSelected = questionInFirstLang.answers[question.answers.indexOf(a)].isSelected
+      })
       this.updateCache(language, question);
     }
   }

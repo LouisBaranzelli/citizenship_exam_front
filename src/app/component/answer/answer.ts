@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, Signal, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output, Signal, ViewChild} from '@angular/core';
 import {NgClass} from '@angular/common';
 
 @Component({
@@ -12,11 +12,11 @@ import {NgClass} from '@angular/common';
 })
 export class AnswerButton {
 
-  protected isSelected: boolean = false
-
   @Input({required: true}) label!: string;
   @Input({required: true}) isCorrect!: boolean;
+  @Input({required: true}) isSelected!: boolean;
   @Input({required: true}) showResults!: Signal<boolean>;
+  @Output() answerSelected = new EventEmitter<boolean>
   @ViewChild('textContainer') textContainer!: ElementRef<HTMLDivElement>
 
   constructor() {
@@ -25,6 +25,7 @@ export class AnswerButton {
   protected toggleSelected() {
     if (!this.showResults()){
       this.isSelected = !this.isSelected
+      this.answerSelected.emit(this.isSelected)
     }
   }
 
