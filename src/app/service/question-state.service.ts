@@ -41,7 +41,10 @@ export class QuestionStateService {
     }
 
   })
+  public randomConstInt: number;
   constructor(apiService: ApiQuestionService, injector: Injector) {
+
+    this.randomConstInt = Math.floor(Math.random() * 10 + 1)
     this.apiService = apiService
     apiService.test()
     runInInjectionContext(injector, () => {

@@ -2,6 +2,7 @@ import {Component, computed, Input, OnInit, Signal} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {Answer} from '../../model/Answer';
 import {AnswerButton} from '../answer/answer';
+import {QuestionStateService} from '../../service/question-state.service';
 
 @Component({
   selector: 'answers-list',
@@ -16,9 +17,14 @@ import {AnswerButton} from '../answer/answer';
 export class AnswersList {
   @Input({required: true}) answers!: Signal<Answer[]>;
   @Input({required: true}) showResults!: Signal<boolean>;
+  private questionStateService: QuestionStateService;
+
+  constructor(questionStateService: QuestionStateService) {
+    this.questionStateService = questionStateService
+  }
 
   rows = computed(() => {
-    const shuffled = [...this.answers()].sort(() => Math.random() - 0.5);
+    const shuffled = [...this.answers()].sort((a, b) => this.questionStateService.randomConstInt % this.answers().indexOf(a));
     const chunkSize = 3;
     const result: Answer[][] = [];
 
