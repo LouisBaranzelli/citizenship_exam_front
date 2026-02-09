@@ -17,7 +17,6 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  overflow: hidden;
 }
 
 /* Overlay pour lisibilité */
@@ -33,7 +32,6 @@
 /* Tous les enfants au-dessus du background */
 .page-container > * {
   position: relative;
-  z-index: 1;
   width: 90%;
   text-shadow: 0 1px 3px rgba(0,0,0,0.6); /* lisibilité du texte */
 }
@@ -56,6 +54,7 @@
 .dropdowncontainer{
   position: relative;
   width: 6%;
+  min-width: 100px;
   height: 100%;
 }
 

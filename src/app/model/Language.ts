@@ -8,6 +8,7 @@ export function getCodeLanguage(language: string): string {
 export enum LanguageID {
   L1= "language.fr",
   L2= "language.en",
+  L3= "language.ru"
 }
 
 export const DEFAULT_LANGUAGE = {id: LanguageID.L1}

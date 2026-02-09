@@ -74,7 +74,7 @@ export class QuestionStateService {
               for (const langID of Object.values(LanguageID))
               {
                 questionToFetchInAnOtherLang = this.cacheQuestion().get(langID)?.get(historyId[cursor])
-                if (questionToFetchInAnOtherLang !== null){
+                if (questionToFetchInAnOtherLang !== null && questionToFetchInAnOtherLang !== undefined){
                   break
                 }
               }
