@@ -1,8 +1,8 @@
 <div class="container">
     <img src="assets/images/background-question/t1/1.webp">
+    <div *ngIf="question!==null" #textContainer class="question">{{labelQuestion()}}</div>
     <div class="answer-zone">
       <answers-list class="answer" [answers]="answers" [showResults]="showResults"></answers-list>
     </div>
     <selector-right-left></selector-right-left>
-    <div #textContainer class="question">{{labelQuestion()}}</div>
 </div>

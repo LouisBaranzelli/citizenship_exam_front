@@ -1,63 +1,23 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-}
-
-/* Card */
-.tile {
-  position: relative;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
-  cursor: pointer;
-}
-
-/* Hover */
-.tile:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.12);
-}
-
-/* Active (click) */
-.tile:active {
-  transform: scale(0.97);
-}
-
-/* Selected state */
-.tile.isSelected {
-  background: rgba(240, 248, 255, 0.95);
-  box-shadow:
-    0 16px 40px rgba(0, 120, 255, 0.25);
-}
-
-/* Image */
-.tile img {
-  display: block;
-  width: 100%;
-  border-radius: 12px;
-}
-
-/* Text */
 .overlay-text {
   margin-top: 8px;
   font-size: 0.95rem;
   font-weight: 500;
   color: #222;
   text-align: center;
-  transition: color 0.2s ease;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.25s ease;
 }
 
-/* Selected text */
+.overlay-text:hover {
+  cursor: pointer;
+  background-color: rgba(0, 120, 255, 0.08);
+}
+
+/* Selected */
 .overlay-text.isSelected {
   color: #0078ff;
   font-weight: 600;
+  background-color: rgba(0, 120, 255, 0.12);
+  transform: scale(1.05);
 }

@@ -23,16 +23,18 @@ img {
 selector-right-left {
   position: absolute;
   inset: 0;
+
 }
 
 /* Answer zone */
 .answer-zone {
   display: flex;
   height: 80%;
-  width: 70%;
+  width: 90%;
   justify-content: center;
   align-items: center;
   z-index: 1;
+  margin: 1%;
 }
 
 /* Answer */

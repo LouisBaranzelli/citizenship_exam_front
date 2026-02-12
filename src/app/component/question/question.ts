@@ -56,7 +56,7 @@ export class Question {
 
   adjustFontSize(){
     const el = this.textContainer.nativeElement
-    let fontSize = 30
+    let fontSize = 20
     el.style.fontSize = fontSize + "px"
     while ((el.clientWidth < el.scrollWidth || el.scrollHeight > el.clientHeight) && fontSize > 6) {
       fontSize -= 1

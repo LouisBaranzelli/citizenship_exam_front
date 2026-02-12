@@ -17,7 +17,6 @@ import {NgClass} from '@angular/common';
 export class Tile {
 @Input({required: true}) size!: number
   @Input({required: true}) label!: string
-  @Input({required: true}) image!: string
   @Input() selected: boolean = false;
   @Output() emitter: EventEmitter<string> = new EventEmitter
 
