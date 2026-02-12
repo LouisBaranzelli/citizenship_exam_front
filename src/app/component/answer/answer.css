@@ -34,11 +34,17 @@
 
   box-shadow: var(--shadow);
   transition: all 0.2s ease;
+}
 
+/* Hover léger pour containers interactifs */
+.container:not(.rightAnswer):not(.wrongAnswer):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
 }
 
 /* =====================================
-   BEFORE ANSWER
+   STATES
    ===================================== */
 .container.notDisplayed.notSelected {
   background-color: rgba(0, 0, 0, 0.6);
@@ -49,9 +55,6 @@
   color: #111;
 }
 
-/* =====================================
-   ANSWER FEEDBACK (FORCED)
-   ===================================== */
 .container.rightAnswer {
   background-color: rgba(20, 251, 20, 0.15) !important;
   backdrop-filter: blur(14px) !important;
@@ -61,10 +64,6 @@
   background-color: rgba(39, 37, 37, 0.6) !important;
   backdrop-filter: blur(14px) !important;
 }
-
-/* =====================================
-   TEXT FEEDBACK
-   ===================================== */
 
 /* ❌ erreur */
 .container.isMistake {

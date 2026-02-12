@@ -49,7 +49,7 @@ selector-right-left {
 .question {
   height: 20%;
   width: 90%;
-  margin-bottom: 1%;
+  margin: 1%;
 
   display: flex;
   justify-content: center;

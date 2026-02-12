@@ -38,6 +38,10 @@ export class QuestionStateService {
       if (!this.apiService.mapRunningOutOfQuestion().has(this.apiService.getKey(theme, level))) {
         return false
       }
+      const cursor: number|null = this.cursor()
+      if (cursor !== null && cursor <= this.historyId().length - 2){
+        return false
+      }
       return this.apiService.mapRunningOutOfQuestion().get(this.apiService.getKey(theme, level))
     }
 
