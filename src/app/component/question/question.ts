@@ -3,6 +3,10 @@ import {QuestionStateService} from '../../service/question-state.service';
 import {SelectorRightLeft} from '../selector-right-left/selector-right-left';
 import {Answer} from '../../model/Answer';
 import {AnswersList} from '../answers-list/anwers-list';
+import {ApiQuestionService} from '../../service/api-question.service';
+
+
+
 
 @Component({
   selector: 'question',
@@ -19,16 +23,22 @@ export class Question {
 
 @ViewChild("textContainer") textContainer!: ElementRef<HTMLDivElement>
 
-  public labelQuestion: Signal<string>;
+  public labelQuestion: Signal<string|undefined>;
   protected answers: Signal<Answer[]>
   protected showResults: Signal<boolean>;
+  protected imagePath: Signal<string|undefined>;
 
- constructor(questionService: QuestionStateService) {
+ constructor(questionService: QuestionStateService, apiService: ApiQuestionService) {
 
-  this.labelQuestion = computed(() =>{
-   return  questionService.selectedQuestion()?.question ?? ""
-  }
- )
+  this.labelQuestion = computed(() => {
+      return questionService.selectedQuestion()?.question ?? ""
+    }
+  )
+
+   this.imagePath = computed(() =>{
+     return questionService.selectedQuestion()?.pathImage
+   })
+
    this.answers = computed(() => {
      const question = questionService.selectedQuestion();
      return question !== null && question!.answers ? [...question!.answers] : [];

@@ -8,4 +8,5 @@ export interface Question {
   answers: Answer[],
   theme: String,
   level: String
+  pathImage: string
 }

@@ -3,9 +3,9 @@ import {DEFAULT_LANGUAGE, Language} from '../model/Language';
 import {Question} from '../model/Question';
 import {Level} from '../model/Level';
 import {Theme} from '../model/Theme';
-import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {firstValueFrom} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +53,7 @@ export class ApiQuestionService {
 
 
   public test() {
-    this.httpClient.get(environment.apiUrl + "/questions/test").subscribe(res => console.log(res))
+    this.httpClient.get(environment.apiUrl + "/questions/test").subscribe((res: any) => console.log(res))
   }
 
   public getKey(theme:Theme, level: Level) : string {

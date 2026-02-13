@@ -1,5 +1,5 @@
 <div class="container">
-    <img src="assets/images/background-question/t1/1.webp">
+    <img [src]="imagePath()">
     <div  #textContainer class="question">{{labelQuestion()}}</div>
     <div class="answer-zone">
       <answers-list class="answer" [answers]="answers" [showResults]="showResults"></answers-list>
